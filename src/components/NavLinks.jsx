@@ -11,7 +11,7 @@ const navigation = [
   },
   {
     name: 'Create Your Plan',
-    path: '/'
+    path: '/create'
   }
 ]
 

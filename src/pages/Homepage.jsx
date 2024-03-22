@@ -15,7 +15,7 @@ export default function Homepage() {
           title="Great coffee made simple."
           text="Start your mornings with the world’s best coffees. Try our expertly curated artisan coffees from our best roasters delivered directly to your door, at your schedule."
         >
-          <LinkButton to="#">Create your plan</LinkButton>
+          <LinkButton to="/create">Create your plan</LinkButton>
         </HeroSection>
         <section className="flex flex-col items-center xl:-mt-16">
           <h2 className="sr-only">Our collection</h2>
@@ -84,9 +84,9 @@ export default function Homepage() {
           <h2 className="text-h4 leading-h4 font-serif font-black text-center text-gray mb-20 md:text-left md:mb-10 xl:mb-20">
             How it works
           </h2>
-          <StepCards />
+          <StepCards isHomepage />
           <div className="mt-20 flex justify-center md:justify-start md:mt-11 xl:mt-16">
-            <LinkButton>Create your plan</LinkButton>
+            <LinkButton to="/create">Create your plan</LinkButton>
           </div>
         </section>
       </div>

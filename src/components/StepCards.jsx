@@ -15,11 +15,11 @@ const steps = [
   }
 ]
 
-export default function StepCards() {
+export default function StepCards({ isHomepage }) {
   return (
-    <div className="flex flex-col gap-14 md:flex-row md:gap-[0.625rem] lg:gap-12 xl:justify-between">
+    <div className="flex flex-col gap-14 md:flex-row md:gap-[0.625rem] xl:gap-24">
       {steps.map((step, index) => (
-        <StepCard key={index} number={index + 1} title={step.title} text={step.text} />
+        <StepCard key={index} number={index + 1} title={step.title} text={step.text} isHomepage={isHomepage} />
       ))}
     </div>
   )

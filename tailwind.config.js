@@ -9,6 +9,7 @@ export default {
         'dark-gray-blue': '#333D4B',
         'pale-orange': '#FDD6BA',
         'light-cream': '#FEFCF7',
+        'light-gray': '#F4F1EB',
         blue: '#2C343E',
         gray: '#83888F'
       },
@@ -42,7 +43,16 @@ export default {
       'homepage-hero-desktop': 'url("/home/desktop/image-hero-coffeepress.jpg")',
       'about-hero-mobile': 'url("/about/mobile/image-hero-whitecup.jpg")',
       'about-hero-tablet': 'url("/about/tablet/image-hero-whitecup.jpg")',
-      'about-hero-desktop': 'url("/about/desktop/image-hero-whitecup.jpg")'
+      'about-hero-desktop': 'url("/about/desktop/image-hero-whitecup.jpg")',
+      'about-quality-mobile': 'url("/about/mobile/bg-quality.png")',
+      'about-quality-tablet': 'url("/about/tablet/bg-quality.png")',
+      'about-quality-desktop': 'url("/about/desktop/bg-quality.png")',
+      'plan-steps-mobile': 'url("/plan/mobile/bg-steps.png")',
+      'plan-steps-tablet': 'url("/plan/tablet/bg-steps.png")',
+      'plan-steps-desktop': 'url("/plan/desktop/bg-steps.png")',
+      'plan-summary-mobile': 'url("/plan/mobile/bg-order-summary.png")',
+      'plan-summary-tablet': 'url("/plan/tablet/bg-order-summary.png")',
+      'plan-summary-desktop': 'url("/plan/desktop/bg-order-summary.png")'
     },
     fontFamily: {
       sans: ['Barlow', 'sans-serif'],

@@ -40,6 +40,10 @@ main {
   background-image: url('/about/mobile/image-hero-whitecup.jpg');
 }
 
+.create-hero {
+  background-image: url('/plan/mobile/image-hero-blackcup.jpg');
+}
+
 @media (min-width: 768px) {
   .no-scroll {
     overflow: auto;
@@ -52,6 +56,10 @@ main {
   .about-hero {
     background-image: url('/about/tablet/image-hero-whitecup.jpg');
   }
+
+  .create-hero {
+    background-image: url('/plan/tablet/image-hero-blackcup.jpg');
+  }
 }
 
 @media (min-width: 1280px) {
@@ -61,5 +69,9 @@ main {
 
   .about-hero {
     background-image: url('/about/desktop/image-hero-whitecup.jpg');
+  }
+
+  .create-hero {
+    background-image: url('/plan/desktop/image-hero-blackcup.jpg');
   }
 }

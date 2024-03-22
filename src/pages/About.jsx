@@ -28,7 +28,7 @@ export default function About() {
             </p>
           </div>
         </section>
-        <section className="flex flex-col items-center gap-16 bg-blue text-light-cream px-6 pb-[3.75rem] rounded-[10px] mt-[4.875rem] md:pb-[4.25rem] md:mt-40 xl:flex-row xl:px-[5.25rem] xl:pb-[5.5rem] xl:mb-[5.5rem]">
+        <section className="flex flex-col items-center gap-16 bg-about-quality-mobile bg-cover text-light-cream px-6 pb-[3.75rem] rounded-[10px] mt-[4.875rem] md:pb-[4.25rem] md:mt-40 md:bg-about-quality-tablet xl:flex-row xl:px-[5.25rem] xl:pb-[5.5rem] xl:mb-[5.5rem] xl:bg-about-quality-desktop">
           <picture className="xl:order-1">
             <source srcSet="/about/desktop/image-quality.jpg" media="(min-width: 1280px)" />
             <source srcSet="/about/tablet/image-quality.jpg" media="(min-width: 768px)" />
