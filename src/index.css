@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  min-height: 100dvh;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+#root {
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.desktop-nav a:hover {
+  color: #333d4b;
+}
+
+.footer-nav a:hover {
+  color: #fefcf7;
+}
+
+.nav-gradient {
+  background: linear-gradient(to bottom, rgb(254, 252, 247) 50%, rgba(254, 252, 247, 0.5));
+}
+
+.homepage-hero {
+  background-image: url('/home/mobile/image-hero-coffeepress.jpg');
+}
+
+.about-hero {
+  background-image: url('/about/mobile/image-hero-whitecup.jpg');
+}
+
+@media (min-width: 768px) {
+  .no-scroll {
+    overflow: auto;
+  }
+
+  .homepage-hero {
+    background-image: url('/home/tablet/image-hero-coffeepress.jpg');
+  }
+
+  .about-hero {
+    background-image: url('/about/tablet/image-hero-whitecup.jpg');
+  }
+}
+
+@media (min-width: 1280px) {
+  .homepage-hero {
+    background-image: url('/home/desktop/image-hero-coffeepress.jpg');
+  }
+
+  .about-hero {
+    background-image: url('/about/desktop/image-hero-whitecup.jpg');
+  }
+}
