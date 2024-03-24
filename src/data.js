@@ -3,6 +3,7 @@ export const preferences = [
     slug: 'preferences',
     name: 'Preferences',
     title: 'How do you drink your coffee?',
+    isDefaultOpen: true,
     options: [
       {
         name: 'Capsule',
@@ -22,6 +23,7 @@ export const preferences = [
     slug: 'beanType',
     name: 'Bean Type',
     title: 'What type of coffee?',
+    isDefaultOpen: false,
     options: [
       {
         name: 'Single Origin',
@@ -41,6 +43,7 @@ export const preferences = [
     slug: 'quantity',
     name: 'Quantity',
     title: 'How much would you like?',
+    isDefaultOpen: false,
     options: [
       {
         name: '250g',
@@ -60,6 +63,7 @@ export const preferences = [
     slug: 'grindOption',
     name: 'Grind Option',
     title: 'Want us to grind them?',
+    isDefaultOpen: false,
     options: [
       {
         name: 'Wholebean',
@@ -79,18 +83,34 @@ export const preferences = [
     slug: 'deliveries',
     name: 'Deliveries',
     title: 'How often should we deliver?',
+    isDefaultOpen: false,
     options: [
       {
         name: 'Every week',
-        description: '$7.20 per shipment. Includes free first-class shipping.'
+        prices: {
+          '250g': 7.2,
+          '500g': 13.0,
+          '1000g': 22.0
+        },
+        description: 'Includes free first-class shipping.'
       },
       {
         name: 'Every 2 weeks',
-        description: '$9.60 per shipment. Includes free priority shipping.'
+        prices: {
+          '250g': 9.6,
+          '500g': 17.5,
+          '1000g': 32.0
+        },
+        description: 'Includes free priority shipping.'
       },
       {
         name: 'Every month',
-        description: '$12.00 per shipment. Includes free priority shipping.'
+        prices: {
+          '250g': 12.0,
+          '500g': 22.0,
+          '1000g': 42.0
+        },
+        description: 'Includes free priority shipping.'
       }
     ]
   }

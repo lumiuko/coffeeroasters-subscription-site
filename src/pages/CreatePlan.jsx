@@ -1,17 +1,19 @@
+import { useState } from 'react'
+
 import HeroSection from '../components/HeroSection'
 import StepCards from '../components/StepCards'
-import Preference from '../components/Preference'
-import { preferences } from '../data'
-import { useState } from 'react'
 import LinkButton from '../components/LinkButton'
-import SummaryOption from '../components/SummaryOption'
+import PreferenceSection from '../components/PreferenceSection'
+import SummaryText from '../components/SummaryText'
+import { preferences } from '../data'
 
-const preferencesEntries = preferences.map(({ slug }) => [slug, ''])
+const preferencesEntries = preferences.map(({ slug }) => [slug, null])
 
 export default function CreatePlan() {
   const [settings, setSettings] = useState(() => Object.fromEntries(preferencesEntries))
+  const isGrindDisabled = settings?.preferences?.name === 'Capsule'
 
-  function onChange(value, key) {
+  function onChange(key, value) {
     setSettings(prevSettings => ({
       ...prevSettings,
       [key]: value
@@ -42,23 +44,38 @@ export default function CreatePlan() {
       <section className="px-6 md:px-10">
         <div className="max-w-[69.375rem] mx-auto flex justify-between">
           <h2 className="sr-only">Customize your coffee</h2>
-          <div className="hidden xl:block max-w-[255px]"></div>
+          <div className="hidden xl:block w-full max-w-[255px] font-serif font-black text-h4 leading-h4">
+            <div className="flex flex-col gap-6 sticky top-12">
+              {preferences.map((preference, index) => (
+                <button
+                  key={preference.slug}
+                  className="text-left pb-6 border-b border-b-gray/25 last:border-none last:pb-0 text-dark-gray-blue/40 disabled:text-dark-gray-blue/20 hover:text-dark-gray-blue transition-colors"
+                  disabled={preference.slug === 'grindOption' && isGrindDisabled}
+                >
+                  <span>{(index + 1).toString().padStart(2, '0')}</span>
+                  <span className="ml-7">{preference.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="flex flex-col gap-[7.5rem] text-body leading-body md:gap-36 xl:max-w-[730px] xl:gap-[5.5rem]">
             <div className="flex flex-col gap-24 md:gap-[6.25rem] xl:gap-[5.5rem]">
               {preferences.map(preference => (
-                <Preference key={preference.slug} value={settings[preference.slug]} onChange={onChange} preference={preference} />
+                <PreferenceSection
+                  key={preference.slug}
+                  settings={settings}
+                  onChange={onChange}
+                  currentPreference={preference}
+                  disabled={preference.slug === 'grindOption' && isGrindDisabled}
+                />
               ))}
             </div>
 
             <div className="max-w-7xl mx-auto flex flex-col items-center gap-14 md:gap-10 xl:items-end">
               <div className="p-8 rounded-[10px] bg-plan-summary-mobile bg-cover text-white md:py-7 md:px-11 xl:bg-plan-summary-desktop xl:px-16">
-                <h2 className="text-body leading-body uppercase text-white/50">Order Summary</h2>
-                <p className="mt-2 font-serif font-black text-h4 leading-10">
-                  “I drink my coffee as <SummaryOption value={settings.preferences} />, with a <SummaryOption value={settings.beanType} />{' '}
-                  type of bean. <SummaryOption value={settings.quantity} /> ground ala <SummaryOption value={settings.grindOption} />, sent
-                  to me <SummaryOption value={settings.deliveries} />
-                  .”
-                </p>
+                <h2 className="text-body leading-body uppercase text-white/50 mb-2">Order Summary</h2>
+                <SummaryText settings={settings} />
               </div>
               <LinkButton isButton>Create my plan!</LinkButton>
             </div>
