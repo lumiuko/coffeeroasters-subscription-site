@@ -1,7 +1,7 @@
 import CollectionCard from '../components/CollectionCard'
 import FeatureCard from '../components/FeatureCard'
 import HeroSection from '../components/HeroSection'
-import LinkButton from '../components/LinkButton'
+import Button from '../components/Button'
 import StepCards from '../components/StepCards'
 
 export default function Homepage() {
@@ -15,7 +15,7 @@ export default function Homepage() {
           title="Great coffee made simple."
           text="Start your mornings with the world’s best coffees. Try our expertly curated artisan coffees from our best roasters delivered directly to your door, at your schedule."
         >
-          <LinkButton to="/create">Create your plan</LinkButton>
+          <Button to="/create">Create your plan</Button>
         </HeroSection>
         <section className="flex flex-col items-center xl:-mt-16">
           <h2 className="sr-only">Our collection</h2>
@@ -86,7 +86,7 @@ export default function Homepage() {
           </h2>
           <StepCards isHomepage />
           <div className="mt-20 flex justify-center md:justify-start md:mt-11 xl:mt-16">
-            <LinkButton to="/create">Create your plan</LinkButton>
+            <Button to="/create">Create your plan</Button>
           </div>
         </section>
       </div>

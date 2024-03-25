@@ -1,11 +1,9 @@
-import { Fragment } from 'react'
-import { RadioGroup } from '@headlessui/react'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import { useId } from 'react'
+import { useState, useEffect, Fragment, useId, forwardRef } from 'react'
+import { RadioGroup, Transition } from '@headlessui/react'
+import { scale } from '../utils/transition'
 
-export default function PreferenceSection({ currentPreference, onChange, disabled, settings }) {
-  const [isDisclosureOpen, setIsDisclosureOpen] = useState(currentPreference.isDefaultOpen)
+const PreferenceSection = forwardRef(({ preference, onChange, disabled, settings }, ref) => {
+  const [isDisclosureOpen, setIsDisclosureOpen] = useState(true)
   const id = useId()
 
   useEffect(() => {
@@ -19,7 +17,7 @@ export default function PreferenceSection({ currentPreference, onChange, disable
   }
 
   return (
-    <div className="text-body leading-body flex flex-col gap-8 md:gap-10 xl:gap-14 has-[:disabled]:opacity-50 transition-opacity">
+    <div ref={ref} className="text-body leading-body flex flex-col gap-8 md:gap-10 xl:gap-14 has-[:disabled]:opacity-50 transition-opacity">
       <button
         className="text-gray font-serif font-black text-h4 leading-7 text-left flex justify-between items-center md:text-h3 md:leading-h2 xl:text-h2"
         onClick={toggleDisclosure}
@@ -27,7 +25,7 @@ export default function PreferenceSection({ currentPreference, onChange, disable
         aria-expanded={isDisclosureOpen}
         aria-controls={`disclosure-panel-${id}`}
       >
-        <span className="mr-[4.375rem]">{currentPreference.title}</span>
+        <span className="mr-[4.375rem]">{preference.title}</span>
         <img
           src="/plan/desktop/icon-arrow.svg"
           className={`${isDisclosureOpen ? 'rotate-180' : ''} transition-transform`}
@@ -36,15 +34,15 @@ export default function PreferenceSection({ currentPreference, onChange, disable
         />
       </button>
 
-      {isDisclosureOpen && (
+      <Transition show={isDisclosureOpen} {...scale}>
         <RadioGroup
           id={`disclosure-panel-${id}`}
           className="flex flex-col gap-4 md:flex-row md:gap-[0.625rem] xl:gap-6"
-          value={settings[currentPreference.slug]}
-          onChange={value => onChange(currentPreference.slug, value)}
+          value={settings[preference]}
+          onChange={value => onChange(preference.slug, value)}
         >
-          <RadioGroup.Label className="sr-only">{currentPreference.name}</RadioGroup.Label>
-          {currentPreference.options.map(option => (
+          <RadioGroup.Label className="sr-only">{preference.name}</RadioGroup.Label>
+          {preference.options.map(option => (
             <RadioGroup.Option key={option.name} value={option} as={Fragment}>
               {({ checked }) => (
                 <div
@@ -54,7 +52,7 @@ export default function PreferenceSection({ currentPreference, onChange, disable
                 >
                   <h3 className="font-serif font-black text-h4 leading-8">{option.name}</h3>
                   <p className="mt-2 md:mt-6">
-                    {option.prices && settings.quantity.name && (
+                    {option.prices && settings.quantity?.name && (
                       <span>{`$${option.prices[settings.quantity.name]?.toFixed(2)} per shipment. `}</span>
                     )}
                     {option.description}
@@ -64,7 +62,10 @@ export default function PreferenceSection({ currentPreference, onChange, disable
             </RadioGroup.Option>
           ))}
         </RadioGroup>
-      )}
+      </Transition>
     </div>
   )
-}
+})
+
+PreferenceSection.displayName = 'PreferenceSection'
+export default PreferenceSection

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
 
 import { fade } from '../utils/transition'
-import NavLinks from './NavLinks'
+import NavLinks from '../components/NavLinks'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

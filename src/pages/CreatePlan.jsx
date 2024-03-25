@@ -1,23 +1,44 @@
-import { useState } from 'react'
+import { useState, useRef, Fragment } from 'react'
+import { preferences } from '../data'
 
 import HeroSection from '../components/HeroSection'
 import StepCards from '../components/StepCards'
-import LinkButton from '../components/LinkButton'
+import Button from '../components/Button'
 import PreferenceSection from '../components/PreferenceSection'
 import SummaryText from '../components/SummaryText'
-import { preferences } from '../data'
+import PlanSidebar from '../components/PlanSidebar'
+import { Dialog, Transition } from '@headlessui/react'
+import { fade, scale } from '../utils/transition'
 
-const preferencesEntries = preferences.map(({ slug }) => [slug, null])
+const initialEntries = Object.fromEntries(preferences.map(({ slug }) => [slug, null]))
 
 export default function CreatePlan() {
-  const [settings, setSettings] = useState(() => Object.fromEntries(preferencesEntries))
-  const isGrindDisabled = settings?.preferences?.name === 'Capsule'
+  const [settings, setSettings] = useState(initialEntries)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const sectionRefs = useRef({})
+  const { deliveries } = settings
 
-  function onChange(key, value) {
+  const isCapsuleSelected = settings?.howDrink?.name === 'Capsule'
+  const keysToCheck = isCapsuleSelected ? Object.keys(settings).filter(key => key !== 'grindOption') : Object.keys(settings)
+  const isComplete = keysToCheck.every(key => settings[key])
+  const totalPrice = deliveries?.prices[settings.quantity?.name] * deliveries?.multiplier || 0
+
+  function setValue(key, value) {
     setSettings(prevSettings => ({
       ...prevSettings,
       [key]: value
     }))
+  }
+
+  function scrollToSection(slug) {
+    const element = sectionRefs.current[slug]
+    if (!element) return
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  function openModal() {
+    if (!totalPrice) return
+    setIsModalOpen(true)
   }
 
   return (
@@ -44,30 +65,18 @@ export default function CreatePlan() {
       <section className="px-6 md:px-10">
         <div className="max-w-[69.375rem] mx-auto flex justify-between">
           <h2 className="sr-only">Customize your coffee</h2>
-          <div className="hidden xl:block w-full max-w-[255px] font-serif font-black text-h4 leading-h4">
-            <div className="flex flex-col gap-6 sticky top-12">
-              {preferences.map((preference, index) => (
-                <button
-                  key={preference.slug}
-                  className="text-left pb-6 border-b border-b-gray/25 last:border-none last:pb-0 text-dark-gray-blue/40 disabled:text-dark-gray-blue/20 hover:text-dark-gray-blue transition-colors"
-                  disabled={preference.slug === 'grindOption' && isGrindDisabled}
-                >
-                  <span>{(index + 1).toString().padStart(2, '0')}</span>
-                  <span className="ml-7">{preference.name}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+          <PlanSidebar settings={settings} scrollToSection={scrollToSection} />
 
           <div className="flex flex-col gap-[7.5rem] text-body leading-body md:gap-36 xl:max-w-[730px] xl:gap-[5.5rem]">
             <div className="flex flex-col gap-24 md:gap-[6.25rem] xl:gap-[5.5rem]">
               {preferences.map(preference => (
                 <PreferenceSection
+                  ref={el => (sectionRefs.current[preference.slug] = el)}
                   key={preference.slug}
                   settings={settings}
-                  onChange={onChange}
-                  currentPreference={preference}
-                  disabled={preference.slug === 'grindOption' && isGrindDisabled}
+                  onChange={setValue}
+                  preference={preference}
+                  disabled={preference.slug === 'grindOption' && isCapsuleSelected}
                 />
               ))}
             </div>
@@ -77,11 +86,46 @@ export default function CreatePlan() {
                 <h2 className="text-body leading-body uppercase text-white/50 mb-2">Order Summary</h2>
                 <SummaryText settings={settings} />
               </div>
-              <LinkButton isButton>Create my plan!</LinkButton>
+              <Button isButton disabled={!isComplete} onClick={openModal}>
+                Create my plan!
+              </Button>
             </div>
           </div>
         </div>
       </section>
+
+      <Transition show={isModalOpen} as={Fragment}>
+        <Dialog onClose={() => setIsModalOpen(false)} className="relative z-50">
+          <Transition.Child as={Fragment} {...fade}>
+            <div className="fixed inset-0 bg-black/50" aria-hidden="true"></div>
+          </Transition.Child>
+          <div className="fixed inset-0 w-screen overflow-auto">
+            <div className="flex justify-center items-center inset-0 min-h-full px-6 py-8 overflow-y-auto">
+              <Transition.Child as={Fragment} {...scale}>
+                <Dialog.Panel className="w-full max-w-[445px] rounded-lg bg-white overflow-hidden md:max-w-[540px]">
+                  <Dialog.Title className="px-6 py-7 bg-dark-gray-blue text-white font-serif font-black text-[1.75rem] leading-h4 md:px-14 md:pt-12 md:pb-10 md:text-h2 md:leading-h2">
+                    Order Summary
+                  </Dialog.Title>
+                  <div className="px-6 pt-10 pb-6 text-gray md:p-14">
+                    <SummaryText settings={settings} />
+                    <Dialog.Description className="text-dark-gray-blue/80 md:mt-2">
+                      Is this correct? You can proceed to checkout or go back to plan selection if something is off. Subscription discount
+                      codes can also be redeemed at the checkout.
+                    </Dialog.Description>
+                    <div className="mt-6 md:mt-12 font-serif font-black flex gap-5 items-center">
+                      <p className="hidden md:block text-dark-gray-blue text-h3 leading-h3">${totalPrice.toFixed(2)} / mo</p>
+                      <Button isButton style={{ flex: '1' }}>
+                        <span>Checkout</span>
+                        <span className="md:hidden"> - ${totalPrice.toFixed(2)} / mo</span>
+                      </Button>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </main>
   )
 }

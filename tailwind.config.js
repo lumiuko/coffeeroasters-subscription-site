@@ -10,6 +10,7 @@ export default {
         'pale-orange': '#FDD6BA',
         'light-cream': '#FEFCF7',
         'light-gray': '#F4F1EB',
+        'very-light-gray': '#E2DEDB',
         blue: '#2C343E',
         gray: '#83888F'
       },

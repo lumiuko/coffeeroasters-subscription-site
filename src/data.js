@@ -1,9 +1,8 @@
 export const preferences = [
   {
-    slug: 'preferences',
+    slug: 'howDrink',
     name: 'Preferences',
     title: 'How do you drink your coffee?',
-    isDefaultOpen: true,
     options: [
       {
         name: 'Capsule',
@@ -23,7 +22,6 @@ export const preferences = [
     slug: 'beanType',
     name: 'Bean Type',
     title: 'What type of coffee?',
-    isDefaultOpen: false,
     options: [
       {
         name: 'Single Origin',
@@ -43,7 +41,6 @@ export const preferences = [
     slug: 'quantity',
     name: 'Quantity',
     title: 'How much would you like?',
-    isDefaultOpen: false,
     options: [
       {
         name: '250g',
@@ -63,7 +60,6 @@ export const preferences = [
     slug: 'grindOption',
     name: 'Grind Option',
     title: 'Want us to grind them?',
-    isDefaultOpen: false,
     options: [
       {
         name: 'Wholebean',
@@ -83,7 +79,6 @@ export const preferences = [
     slug: 'deliveries',
     name: 'Deliveries',
     title: 'How often should we deliver?',
-    isDefaultOpen: false,
     options: [
       {
         name: 'Every week',
@@ -92,6 +87,7 @@ export const preferences = [
           '500g': 13.0,
           '1000g': 22.0
         },
+        multiplier: 4,
         description: 'Includes free first-class shipping.'
       },
       {
@@ -101,6 +97,7 @@ export const preferences = [
           '500g': 17.5,
           '1000g': 32.0
         },
+        multiplier: 2,
         description: 'Includes free priority shipping.'
       },
       {
@@ -110,6 +107,7 @@ export const preferences = [
           '500g': 22.0,
           '1000g': 42.0
         },
+        multiplier: 1,
         description: 'Includes free priority shipping.'
       }
     ]
