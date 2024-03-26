@@ -1,5 +1,5 @@
-import HeroSection from '../components/HeroSection'
-import LocationCard from '../components/LocationCard'
+import HeroSection from '../components/common/HeroSection'
+import LocationCard from '../components/about/LocationCard'
 
 export default function About() {
   return (

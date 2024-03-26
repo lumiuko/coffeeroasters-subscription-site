@@ -1,8 +1,8 @@
-import CollectionCard from '../components/CollectionCard'
-import FeatureCard from '../components/FeatureCard'
-import HeroSection from '../components/HeroSection'
-import Button from '../components/Button'
-import StepCards from '../components/StepCards'
+import CollectionCard from '../components/homepage/CollectionCard'
+import FeatureCard from '../components/homepage/FeatureCard'
+import HeroSection from '../components/common/HeroSection'
+import Button from '../components/common/Button'
+import StepCards from '../components/common/StepCards'
 
 export default function Homepage() {
   return (

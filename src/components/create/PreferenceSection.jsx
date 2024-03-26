@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment, useId, forwardRef } from 'react'
 import { RadioGroup, Transition } from '@headlessui/react'
-import { scale } from '../utils/transition'
+import { scale } from '../../utils/transition'
 
 const PreferenceSection = forwardRef(({ preference, onChange, disabled, settings }, ref) => {
   const [isDisclosureOpen, setIsDisclosureOpen] = useState(true)
@@ -38,7 +38,7 @@ const PreferenceSection = forwardRef(({ preference, onChange, disabled, settings
         <RadioGroup
           id={`disclosure-panel-${id}`}
           className="flex flex-col gap-4 md:flex-row md:gap-[0.625rem] xl:gap-6"
-          value={settings[preference]}
+          value={settings[preference.slug]}
           onChange={value => onChange(preference.slug, value)}
         >
           <RadioGroup.Label className="sr-only">{preference.name}</RadioGroup.Label>

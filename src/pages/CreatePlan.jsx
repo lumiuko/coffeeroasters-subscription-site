@@ -1,14 +1,16 @@
 import { useState, useRef, Fragment } from 'react'
-import { preferences } from '../data'
-
-import HeroSection from '../components/HeroSection'
-import StepCards from '../components/StepCards'
-import Button from '../components/Button'
-import PreferenceSection from '../components/PreferenceSection'
-import SummaryText from '../components/SummaryText'
-import PlanSidebar from '../components/PlanSidebar'
 import { Dialog, Transition } from '@headlessui/react'
+import { toast } from 'react-toastify'
+
+import { preferences } from '../data'
 import { fade, scale } from '../utils/transition'
+
+import HeroSection from '../components/common/HeroSection'
+import StepCards from '../components/common/StepCards'
+import Button from '../components/common/Button'
+import PreferenceSection from '../components/create/PreferenceSection'
+import SummaryText from '../components/create/SummaryText'
+import PlanSidebar from '../components/create/PlanSidebar'
 
 const initialEntries = Object.fromEntries(preferences.map(({ slug }) => [slug, null]))
 
@@ -39,6 +41,13 @@ export default function CreatePlan() {
   function openModal() {
     if (!totalPrice) return
     setIsModalOpen(true)
+  }
+
+  function complete() {
+    window.scrollTo(0, 0)
+    toast.success('Your plan has been created')
+    setIsModalOpen(false)
+    setSettings(initialEntries)
   }
 
   return (
@@ -114,7 +123,7 @@ export default function CreatePlan() {
                     </Dialog.Description>
                     <div className="mt-6 md:mt-12 font-serif font-black flex gap-5 items-center">
                       <p className="hidden md:block text-dark-gray-blue text-h3 leading-h3">${totalPrice.toFixed(2)} / mo</p>
-                      <Button isButton style={{ flex: '1' }}>
+                      <Button isButton style={{ flex: '1' }} onClick={complete}>
                         <span>Checkout</span>
                         <span className="md:hidden"> - ${totalPrice.toFixed(2)} / mo</span>
                       </Button>

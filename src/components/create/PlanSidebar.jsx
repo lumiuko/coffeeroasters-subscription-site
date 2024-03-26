@@ -1,13 +1,13 @@
-import { preferences } from '../data'
+import { preferences } from '../../data'
 
 export default function PlanSidebar({ settings, scrollToSection }) {
   return (
     <div className="hidden xl:block w-full max-w-[255px] font-serif font-black text-h4 leading-h4">
-      <div className="flex flex-col gap-6 sticky top-12">
+      <div className="flex flex-col sticky top-12">
         {preferences.map((preference, index) => (
           <button
             key={preference.slug}
-            className="text-left pb-6 border-b border-b-gray/25 last:border-none last:pb-0 group"
+            className="text-left py-6 border-b border-b-gray/25 last:border-none first:pt-0 group"
             disabled={preference.slug === 'grindOption' && settings?.howDrink?.name === 'Capsule'}
             onClick={() => scrollToSection(preference.slug)}
           >
