@@ -21,14 +21,7 @@ export default function Navbar() {
     <header className="px-6 pt-8 pb-10 md:px-10 md:pt-10 md:pb-[3.375rem] xl:pb-11">
       <nav className="max-w-7xl mx-auto flex justify-between items-center">
         <img src="/shared/desktop/logo.svg" className="h-[18px] md:h-[26px]" alt="Coffeeroasters logo" />
-        <button
-          aria-expanded={isMenuOpen}
-          aria-haspopup="menu"
-          aria-label="Toggle menu"
-          aria-controls="mobile-menu"
-          onClick={toggleMenu}
-          className="md:hidden"
-        >
+        <button aria-expanded={isMenuOpen} aria-haspopup="menu" aria-label="Toggle menu" onClick={toggleMenu} className="md:hidden">
           {isMenuOpen ? (
             <img src="/shared/mobile/icon-close.svg" alt="Close menu" aria-hidden="true" />
           ) : (
