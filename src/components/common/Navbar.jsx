@@ -27,10 +27,7 @@ export default function Navbar() {
           <NavLinks />
         </ul>
         <Transition show={isMenuOpen} {...fade} as={Fragment}>
-          <ul
-            id="mobile-menu"
-            className="absolute w-full min-h-dvh top-full left-0 z-10 nav-gradient text-center p-10 text-h4 leading-h4 font-serif font-black flex flex-col gap-8 md:hidden"
-          >
+          <ul className="absolute w-full min-h-dvh top-full left-0 z-10 nav-gradient text-center p-10 text-h4 leading-h4 font-serif font-black flex flex-col gap-8 md:hidden">
             <NavLinks onClick={() => setIsMenuOpen(false)} />
           </ul>
         </Transition>
