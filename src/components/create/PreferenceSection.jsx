@@ -7,8 +7,7 @@ const PreferenceSection = forwardRef(({ preference, onChange, disabled, settings
   const id = useId()
 
   useEffect(() => {
-    if (!disabled) return
-    setIsDisclosureOpen(false)
+    setIsDisclosureOpen(!disabled)
   }, [disabled])
 
   function toggleDisclosure() {
